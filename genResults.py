@@ -73,9 +73,8 @@ def determine_results(CP, PA, scores, user_names, user_picks):
 
 
 def read_user_brackets():
-    fh = open("userbrackets.dat", "r")
-    game_results = fh.read().splitlines()
-    fh.close()
+    with open("userbrackets.dat", "r") as fh:
+        game_results = fh.read().splitlines()
     user_names = []
     user_picks = []
     scores = {}
