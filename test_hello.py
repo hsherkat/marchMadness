@@ -1,4 +1,7 @@
-from approvaltests.approvals import verify
+from approvaltests.approvals import set_default_reporter, verify
+from approvaltests.reporters import GenericDiffReporterFactory
+
+set_default_reporter(GenericDiffReporterFactory().get("WinMerge"))
 
 
 def test_simple():
