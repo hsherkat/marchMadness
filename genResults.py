@@ -28,8 +28,8 @@ def generate_picks_and_points(game_results):
     points_available = [0] * 63
     for game in game_results:
         idx, pick, points = map(int, game.split())
-        correct_picks[idx - 1] = int(pick)
-        points_available[idx - 1] = int(points)
+        correct_picks[idx - 1] = pick
+        points_available[idx - 1] = points
     return correct_picks, points_available
 
 
