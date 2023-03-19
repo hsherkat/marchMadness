@@ -27,10 +27,10 @@ def main():
         PA[int(gameV[0]) - 1] = int(gameV[2])
 
     #  Read the user brackets
-    scores, userNames, userPicks = read_user_brackets()
+    scores, user_names, user_picks = read_user_brackets()
 
     # Determine results
-    determine_results(CP, PA, scores, userNames, userPicks)
+    determine_results(CP, PA, scores, user_names, user_picks)
 
     write_results(scores)
 
@@ -43,13 +43,13 @@ def write_results(scores):
             )
 
 
-def determine_results(CP, PA, scores, userNames, userPicks):
+def determine_results(CP, PA, scores, user_names, user_picks):
     with open("userResultsPy.dat", "w") as fh:
-        for ii in range(len(userPicks)):
+        for ii in range(len(user_picks)):
             score = 0
             # 0 = no result, 1 = correct, 2 = incorrect
             returnS = [0] * 63
-            myP = userPicks[ii]
+            myP = user_picks[ii]
             for iGame in range(63, 0, -1):
                 if CP[iGame - 1] > 0:
                     # Wrong pick
@@ -68,7 +68,7 @@ def determine_results(CP, PA, scores, userNames, userPicks):
             for ll in range(len(returnS)):
                 score = score + (returnS[ll] % 2) * PA[ll]
                 returnS[ll] = str(returnS[ll])
-            scores[userNames[ii]] = score
+            scores[user_names[ii]] = score
             fh.write("".join(returnS) + "\n")
 
 
@@ -76,15 +76,15 @@ def read_user_brackets():
     fh = open("userbrackets.dat", "r")
     game_results = fh.read().splitlines()
     fh.close()
-    userNames = []
-    userPicks = []
+    user_names = []
+    user_picks = []
     scores = {}
     print(game_results)
     for ii in range(1, len(game_results), 2):
-        userPicks.append(game_results[ii])
+        user_picks.append(game_results[ii])
     for ii in range(0, len(game_results), 2):
-        userNames.append(game_results[ii])
-    return scores, userNames, userPicks
+        user_names.append(game_results[ii])
+    return scores, user_names, user_picks
 
 
 def get_game_results():
