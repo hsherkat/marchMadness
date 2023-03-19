@@ -17,9 +17,9 @@ import operator
 def main():
     #  Load the correct picks (CP) and the points available (PA) into an array.
     #    Remember that the games are 1-indexed, but python arrays are 0-indexed
+    game_results = get_game_results()
     CP = [0] * 63
     PA = [0] * 63
-    game_results = get_game_results()
 
     for i in range(len(game_results)):
         gameV = game_results[i].split()
