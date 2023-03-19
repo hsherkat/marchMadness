@@ -19,9 +19,10 @@ def main():
     #    Remember that the games are 1-indexed, but python arrays are 0-indexed
     CP = [0] * 63
     PA = [0] * 63
-    flines = get_game_results()
-    for i in range(len(flines)):
-        gameV = flines[i].split()
+    game_results = get_game_results()
+
+    for i in range(len(game_results)):
+        gameV = game_results[i].split()
         CP[int(gameV[0]) - 1] = int(gameV[1])
         PA[int(gameV[0]) - 1] = int(gameV[2])
 
