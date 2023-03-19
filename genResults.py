@@ -15,8 +15,6 @@ import operator
 
 
 def main():
-    #  Load the correct picks (CP) and the points available (PA) into an array.
-    #    Remember that the games are 1-indexed, but python arrays are 0-indexed
     game_results = get_game_results()
     correct_picks, points_available = generate_picks_and_points(game_results)
 
@@ -36,10 +34,10 @@ def generate_picks_and_points(game_results):
 
 
 def write_results(scores):
-    with open("userScores.dat", "w") as scoreFile:
+    with open("userScores.dat", "w") as score_file:
         for team, val in sorted(scores.items(), key=operator.itemgetter(1), reverse=True):
-            scoreFile.write(
-                team + " with " + str(val) + " points" + "\n"
+            score_file.write(
+                f"{team} with {val} points\n"
             )
 
 
