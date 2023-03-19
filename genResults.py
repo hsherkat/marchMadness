@@ -87,9 +87,8 @@ def read_user_brackets():
 
 
 def get_game_results():
-    fh = open("gameResults.dat", "r")
-    flines = fh.read().splitlines()
-    fh.close()
+    with open("gameResults.dat", "r") as fh:
+        flines = fh.readlines()
     return flines
 
 
