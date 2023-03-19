@@ -18,21 +18,21 @@ def main():
     #  Load the correct picks (CP) and the points available (PA) into an array.
     #    Remember that the games are 1-indexed, but python arrays are 0-indexed
     game_results = get_game_results()
-    CP = [0] * 63
-    PA = [0] * 63
+    correct_picks, points_available = generate_picks_and_points(game_results)
 
-    for i in range(len(game_results)):
-        gameV = game_results[i].split()
-        CP[int(gameV[0]) - 1] = int(gameV[1])
-        PA[int(gameV[0]) - 1] = int(gameV[2])
-
-    #  Read the user brackets
     scores, user_names, user_picks = read_user_brackets()
-
-    # Determine results
-    determine_results(CP, PA, scores, user_names, user_picks)
-
+    determine_results(correct_picks, points_available, scores, user_names, user_picks)
     write_results(scores)
+
+
+def generate_picks_and_points(game_results):
+    correct_picks = [0] * 63
+    points_available = [0] * 63
+    for game in game_results:
+        idx, pick, points = map(int, game.split())
+        correct_picks[idx - 1] = int(pick)
+        points_available[idx - 1] = int(points)
+    return correct_picks, points_available
 
 
 def write_results(scores):
