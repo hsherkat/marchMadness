@@ -37,9 +37,9 @@ def main():
 
 def write_results(scores):
     with open("userScores.dat", "w") as scoreFile:
-        for teamValPair in sorted(scores.items(), key=operator.itemgetter(1), reverse=True):
+        for team, val in sorted(scores.items(), key=operator.itemgetter(1), reverse=True):
             scoreFile.write(
-                teamValPair[0] + " with " + str(teamValPair[1]) + " points" + "\n"
+                team + " with " + str(val) + " points" + "\n"
             )
 
 
