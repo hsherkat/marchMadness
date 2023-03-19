@@ -73,7 +73,6 @@ def determine_results(correct_picks, points_available, scores, user_names, user_
 def read_user_brackets():
     with open("userbrackets.dat", "r") as fh:
         game_results = fh.read().splitlines()
-    scores = {}
     user_names = game_results[::2]
     user_picks = game_results[1::2]
     return user_names, user_picks
