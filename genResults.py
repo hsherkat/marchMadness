@@ -27,17 +27,8 @@ def main():
         PA[int(gameV[0]) - 1] = int(gameV[2])
 
     #  Read the user brackets
-    fh = open("userbrackets.dat", "r")
-    flines = fh.read().splitlines()
-    fh.close()
-    userNames = []
-    userPicks = []
-    scores = {}
-    print(flines)
-    for ii in range(1, len(flines), 2):
-        userPicks.append(flines[ii])
-    for ii in range(0, len(flines), 2):
-        userNames.append(flines[ii])
+    scores, userNames, userPicks = read_user_brackets()
+
     # Determine results
     fh = open("userResultsPy.dat", "w")
     scoreFile = open("userScores.dat", "w")
