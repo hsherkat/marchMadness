@@ -18,7 +18,8 @@ def main():
     game_results = get_game_results()
     correct_picks, points_available = generate_picks_and_points(game_results)
 
-    scores, user_names, user_picks = read_user_brackets()
+    user_names, user_picks = read_user_brackets()
+    scores = {}
     determine_results(correct_picks, points_available, scores, user_names, user_picks)
     write_results(scores)
 
@@ -41,47 +42,41 @@ def write_results(scores):
             )
 
 
-def determine_results(CP, PA, scores, user_names, user_picks):
+def determine_results(correct_picks, points_available, scores, user_names, user_picks):
     with open("userResultsPy.dat", "w") as fh:
-        for ii in range(len(user_picks)):
+        for user, picks in zip(user_names, user_picks):
             score = 0
             # 0 = no result, 1 = correct, 2 = incorrect
             returnS = [0] * 63
-            myP = user_picks[ii]
-            for iGame in range(63, 0, -1):
-                if CP[iGame - 1] > 0:
+            for game_idx in range(63, 0, -1):
+                if correct_picks[game_idx - 1] > 0:
                     # Wrong pick
-                    if CP[iGame - 1] != float(myP[iGame - 1]):
-                        returnS[iGame - 1] = 2
+                    if correct_picks[game_idx - 1] != float(picks[game_idx - 1]):
+                        returnS[game_idx - 1] = 2
                     # Right pick in the first round
-                    elif iGame > 31:
-                        returnS[iGame - 1] = 1
+                    elif game_idx > 31:
+                        returnS[game_idx - 1] = 1
                     # Second round or later
                     else:
                         # Only correct if the user also match in the earlier round
-                        if returnS[2 * iGame + CP[iGame - 1] - 2] == 1:
-                            returnS[iGame - 1] = 1
+                        if returnS[2 * game_idx + correct_picks[game_idx - 1] - 2] == 1:
+                            returnS[game_idx - 1] = 1
                         else:
-                            returnS[iGame - 1] = 2
+                            returnS[game_idx - 1] = 2
             for ll in range(len(returnS)):
-                score = score + (returnS[ll] % 2) * PA[ll]
+                score = score + (returnS[ll] % 2) * points_available[ll]
                 returnS[ll] = str(returnS[ll])
-            scores[user_names[ii]] = score
+            scores[user] = score
             fh.write("".join(returnS) + "\n")
 
 
 def read_user_brackets():
     with open("userbrackets.dat", "r") as fh:
         game_results = fh.read().splitlines()
-    user_names = []
-    user_picks = []
     scores = {}
-    print(game_results)
-    for ii in range(1, len(game_results), 2):
-        user_picks.append(game_results[ii])
-    for ii in range(0, len(game_results), 2):
-        user_names.append(game_results[ii])
-    return scores, user_names, user_picks
+    user_names = game_results[::2]
+    user_picks = game_results[1::2]
+    return user_names, user_picks
 
 
 def get_game_results():
