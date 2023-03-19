@@ -76,11 +76,15 @@ def read_user_brackets():
     fh = open("userbrackets.dat", "r")
     game_results = fh.read().splitlines()
     fh.close()
-    for teamValPair in sorted(scores.items(), key=operator.itemgetter(1), reverse=True):
-        scoreFile.write(
-            teamValPair[0] + " with " + str(teamValPair[1]) + " points" + "\n"
-        )
-    scoreFile.close()
+    userNames = []
+    userPicks = []
+    scores = {}
+    print(game_results)
+    for ii in range(1, len(game_results), 2):
+        userPicks.append(game_results[ii])
+    for ii in range(0, len(game_results), 2):
+        userNames.append(game_results[ii])
+    return scores, userNames, userPicks
 
 
 def get_game_results():
