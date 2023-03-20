@@ -78,7 +78,7 @@ def calculate_score(points_available, returnS):
     return sum((retS % 2) * points for retS, points in zip(returnS, points_available))
 
 
-def read_user_brackets():
+def read_user_brackets() -> tuple[list[str], list[str]]:
     with open("userbrackets.dat", "r") as fh:
         game_results = fh.read().splitlines()
     user_names = game_results[::2]
