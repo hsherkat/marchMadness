@@ -40,9 +40,13 @@ def write_results(scores):
             score_file.write(f"{team} with {val} points\n")
 
 
-def determine_results(correct_picks, points_available, user_names, user_picks):
+def determine_results(
+    correct_picks: list[int],
+    points_available: list[int],
+    user_names: list[str],
+    user_picks: list[str],
+) -> dict[str, int]:
     scores = {}
-
     with open("userResultsPy.dat", "w") as fh:
         for user, picks in zip(user_names, user_picks):
             returnS = process_picks(correct_picks, picks)
