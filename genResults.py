@@ -57,7 +57,7 @@ def determine_results(
     return scores
 
 
-def process_picks(correct_picks, picks):
+def process_picks(correct_picks: list[int], picks: str) -> list[int]:
     # 0 = no result, 1 = correct, 2 = incorrect
     returnS = [0] * 63
     for game_idx in range(63, 0, -1):
