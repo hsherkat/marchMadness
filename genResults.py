@@ -63,7 +63,7 @@ def process_picks(correct_picks: list[int], picks: str) -> list[int]:
     for game_idx in range(63, 0, -1):
         if correct_picks[game_idx - 1] > 0:
             # Wrong pick
-            if correct_picks[game_idx - 1] != float(picks[game_idx - 1]):
+            if correct_picks[game_idx - 1] != int(picks[game_idx - 1]):
                 returnS[game_idx - 1] = 2
             # Right pick in the first round
             elif game_idx > 31:
