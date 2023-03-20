@@ -17,13 +17,12 @@ import operator
 def main():
     game_results = get_game_results()
     correct_picks, points_available = generate_picks_and_points(game_results)
-
     user_names, user_picks = read_user_brackets()
     scores = determine_results(correct_picks, points_available, user_names, user_picks)
     write_results(scores)
 
 
-def generate_picks_and_points(game_results):
+def generate_picks_and_points(game_results: list[str]) -> tuple[list[int], list[int]]:
     correct_picks = [0] * 63
     points_available = [0] * 63
     for game in game_results:
@@ -87,7 +86,7 @@ def read_user_brackets():
     return user_names, user_picks
 
 
-def get_game_results():
+def get_game_results() -> list[str]:
     with open("gameResults.dat", "r") as fh:
         flines = fh.readlines()
     return flines
