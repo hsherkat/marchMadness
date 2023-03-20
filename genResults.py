@@ -35,10 +35,10 @@ def generate_picks_and_points(game_results):
 
 def write_results(scores):
     with open("userScores.dat", "w") as score_file:
-        for team, val in sorted(scores.items(), key=operator.itemgetter(1), reverse=True):
-            score_file.write(
-                f"{team} with {val} points\n"
-            )
+        for team, val in sorted(
+            scores.items(), key=operator.itemgetter(1), reverse=True
+        ):
+            score_file.write(f"{team} with {val} points\n")
 
 
 def determine_results(correct_picks, points_available, user_names, user_picks):
@@ -46,7 +46,6 @@ def determine_results(correct_picks, points_available, user_names, user_picks):
 
     with open("userResultsPy.dat", "w") as fh:
         for user, picks in zip(user_names, user_picks):
-            # 0 = no result, 1 = correct, 2 = incorrect
             returnS = process_picks(correct_picks, picks)
             scores[user] = calculate_score(points_available, returnS)
 
@@ -56,6 +55,7 @@ def determine_results(correct_picks, points_available, user_names, user_picks):
 
 
 def process_picks(correct_picks, picks):
+    # 0 = no result, 1 = correct, 2 = incorrect
     returnS = [0] * 63
     for game_idx in range(63, 0, -1):
         if correct_picks[game_idx - 1] > 0:
